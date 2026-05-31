@@ -1,0 +1,7 @@
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user
+*.Rproj
+_site/
+app_cache/
