@@ -34,31 +34,10 @@ library(scales)
 library(e1071)
 
 # =====================================================================
-# DESCARGA DE DATOS DIARIOS 2019-2026
+# CARGA DE DATOS PRE-DESCARGADOS (DIARIOS 2019-2026)
 # =====================================================================
-
-tickers <- c(
-  "AMX"     = "AMXB.MX",
-  "BANORTE" = "GFNORTEO.MX",
-  "WALMEX"  = "WALMEX.MX",
-  "BIMBO"   = "BIMBOA.MX",
-  "FEMSA"   = "FEMSAUBD.MX",
-  "CEMEX"   = "CEMEXCPO.MX"
-)
-
-message("Descargando datos diarios BMV 2019–2026...")
-
-for (nm in names(tickers)) {
-  tryCatch(
-    getSymbols(tickers[nm], src = "yahoo", from = "2019-01-01", to = Sys.Date(), auto.assign = TRUE),
-    error = function(e) message(paste("Error descargando", nm, ":", e$message))
-  )
-}
-
-ipc_raw <- tryCatch(
-  getSymbols("^MXX", src = "yahoo", from = "2019-01-01", to = Sys.Date(), auto.assign = FALSE),
-  error = function(e) { message("Error IPC"); NULL }
-)
+# Se cargan de forma local para evitar errores de CORS/Red en el navegador (WebAssembly)
+load("data.RData")
 
 # =====================================================================
 # SERIES DE PRECIOS AJUSTADOS (DIARIOS)
